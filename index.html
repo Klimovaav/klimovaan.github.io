@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- форма регистрации -->
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />  <!-- можно и удалить, это только для правильного считывания на старых барузерах -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="../css/style.css" />
+        <!-- <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300&display=swap" rel="stylesheet" /> -->
+
+        <!-- подключаю шрифт, пока не получилось -->
+        <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
+        <title>Форма регистрации</title>
+        <style>
+            /* Прячем поле с докладом */
+            .hidden {
+                display: none;
+            }
+
+            /* Общий стиль для формы */
+            .registration-form {
+                display: grid;
+                grid-template-columns: 1fr 1fr; /* Две равные колонки */
+                gap: 40px; /* Отступы между элементами */
+                max-width: 600px;
+                margin: 0 auto; /* Центрируем форму */
+                padding: 40px;
+                background-color: #f9f9f9;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+            }
+
+            /* Заголовок формы */
+            .registration-form h1 {
+                grid-column: span 2; /* Заголовок занимает две колонки */
+                text-align: center;
+            }
+
+            /* Столбцы формы */
+            .container {
+                display: flex;
+                flex-direction: column;
+                gap: 20px; /* Отступ между меткой и полем */
+            }
+
+            /* Поля ввода */
+            .form-group {
+                display: flex;
+                flex-direction: column;
+                gap: 5px; /* Отступ между меткой и полем */
+            }
+
+            /* Кнопка */
+            button {
+                grid-column: span 2; /* Кнопка занимает две колонки */
+                padding: 10px 20px;
+                background-color: #007bff;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+            button:hover {
+                background-color: #0056b3;
+            }
+            
+        </style>
+    </head>
+
+    <body>
+        <form class="registration-form">  <!-- -->
+            <h1>Форма регистрации</h1>
+
+            <div class="container">
+                
+                <!-- Поле для фамилии -->
+                <div class="form-group">
+                    <label for="last-name">Фамилия</label>
+                    <input type="text" id="last-name" name="last_name" placeholder="Фамилия" pattern="[А-Яа-яЁё]+" title="Введите на кириллице" required>
+                </div>
+
+                <!-- Поле для имени -->
+                <div class="form-group">
+                    <label for="first-name">Имя</label>
+                    <input type="text" id="first-name" name="first_name" placeholder="Имя" pattern="[А-Яа-яЁё]+" title="Введите на кириллице" required>
+                </div>
+
+                <!-- Поле для отчества -->
+                <div class="form-group">
+                    <label for="patronymic">Отчество</label>
+                    <input type="text" id="patronymic" name="patronymic" placeholder="Отчество" pattern="[А-Яа-яЁё]+" title="Введите на кириллице" required>
+                </div>
+                
+                <!-- Поле для телефона -->
+                <div class="form-group">
+                    <label for="phone">Контактный телефон</label>
+                    <input type="tel" id="phone" name="phone" placeholder="+7xxxxxxxxxx" pattern="^\+7\d{10}$" title="Введите номер в формате +7xxxxxxxxxx" required>
+                </div>
+
+                <!-- Поле для email -->
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Введите email" required>  <!-- можно добавить для валидации, но это избыточно: pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" -->
+                </div>
+            </div>
+
+            <div class="container">
+                <!-- Список с секциями конференции (математика, физика, информатика) -->
+                <div class="form-group">
+                    <label><b>Выберите секцию конференции</b></label>
+                    <div>
+                        <input type="radio" id="maths" name="section" value="maths" required>
+                        <label for="maths">Математика</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="phisics" name="section" value="phisics" required>
+                        <label for="phisics">Физика</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="inform" name="section" value="inform" required>
+                        <label for="inform">Информатика</label>
+                    </div>
+                </div>
+
+                <!-- Дата рождения -->
+                <div class="form-group">
+                    <label for="birthdate">Дата рождения</label>
+                    <input type="date" id="birthdate" name="birthdate">
+                </div>
+
+                <!-- Выбор роли -->
+                <div class="form-group">
+                    <div>
+                        <input type="radio" id="viewer" name="role" value="viewer" onchange="toggleReportField()" checked required>
+                        <label for="viewer">Приду просто посмотреть</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="speaker" name="role" value="speaker" onchange="toggleReportField()" required>
+                        <label for="speaker">Буду докладчиком</label>
+                    </div>
+                </div>
+        
+                <!-- Поле для ввода темы доклада, открывается с js -->
+                <div class="form-group hidden" id="report-field">
+                    <label for="report">Тема доклада</label>
+                    </textarea><input type="text" id="report" name="report" placeholder="Введите тему доклада" required>
+                </div>
+            </div>
+
+            <!-- Кнопка отправки -->
+            <button type="submit">Зарегистрироваться</button>  <!-- с кнопкой пока хз <button class="registerbtn" formaction="../index.html" formnovalidate>Назад</button> -->
+
+        </form>
+
+
+        <script>
+            // Управление видимостью поля "Тема доклада"
+            function toggleReportField() {
+                const speakerRadio = document.getElementById("speaker");
+                const reportField = document.getElementById("report-field");
+
+                if (speakerRadio.checked) {
+                    reportField.classList.remove("hidden"); // Показываем поле
+                } else {
+                    reportField.classList.add("hidden"); // Скрываем поле
+                }
+            }
+        </script>
+
+    </body>
+
+</html>
