@@ -18,7 +18,7 @@
         <style>
             /* Прячем поле с докладом */
             .hidden {
-                display: none;
+                display: none !important;
             }
 
             /* Общий стиль для формы */
@@ -38,6 +38,7 @@
             .registration-form h1 {
                 grid-column: span 2; /* Заголовок занимает две колонки */
                 text-align: center;
+                margin: 0;
             }
 
             /* Столбцы формы */
@@ -148,7 +149,7 @@
                 <!-- Поле для ввода темы доклада, открывается с js -->
                 <div class="form-group hidden" id="report-field">
                     <label for="report">Тема доклада</label>
-                    </textarea><input type="text" id="report" name="report" placeholder="Введите тему доклада" required>
+                    <input type="text" id="report" name="report" placeholder="Введите тему доклада" required>
                 </div>
             </div>
 
