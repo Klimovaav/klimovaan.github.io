@@ -16,7 +16,7 @@ $_SESSION['form_data'] = [
     'lastname' => $lastname,
     'firstname' => $firstname,
     'patronymic' => $patronymic,
-    'number' => $phone,
+    'number' => $number,
     'email' => $email,
     'section' => $section,
     'date' => $date,
@@ -50,7 +50,7 @@ $_SESSION['form_data'] = [
         <p><strong>Дата рождения:</strong> <?php echo $date ?: 'Не указана'; ?></p>
         <p><strong>Роль:</strong> <?php echo $role; ?></p>
 
-        <?php if ($role == "Буду докладчиком"): ?>
+        <?php if ($role == "Докладчик"): ?>
             <p><strong>Доклад:</strong> <?php echo $report; ?></p>
         <?php endif; ?>
 

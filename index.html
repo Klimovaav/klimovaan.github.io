@@ -149,7 +149,7 @@
                 <!-- Поле для ввода темы доклада, открывается с js -->
                 <div class="form-group hidden" id="report-field">
                     <label for="report">Тема доклада</label>
-                    <input type="text" id="report" name="report" placeholder="Введите тему доклада" required>
+                    <input type="text" id="report" name="report" placeholder="Введите тему доклада">
                 </div>
             </div>
 
@@ -164,11 +164,14 @@
             function toggleReportField() {
                 const speakerRadio = document.getElementById("speaker");
                 const reportField = document.getElementById("report-field");
+                const reportInput = document.getElementById("report");
 
                 if (speakerRadio.checked) {
-                    reportField.classList.remove("hidden"); // Показываем поле
+                    reportField.classList.remove("hidden"); // Показываем поле и делаем обязательным
+                    reportInput.setAttribute("required", "required"); 
                 } else {
-                    reportField.classList.add("hidden"); // Скрываем поле
+                    reportField.classList.add("hidden"); // Скрываем поле и убираем обязательность
+                    reportInput.removeAttribute("required"); 
                 }
             }
         </script>
