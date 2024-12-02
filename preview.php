@@ -44,10 +44,10 @@ $_SESSION['form_data'] = [
         <p><strong>Фамилия:</strong> <?php echo $lastname; ?></p>
         <p><strong>Имя:</strong> <?php echo $firstname; ?></p>
         <p><strong>Отчество:</strong> <?php echo $patronymic; ?></p>
-        <p><strong>Телефон:</strong> <?php $number; ?></p>
-        <p><strong>Email:</strong> <?php $email; ?></p>
+        <p><strong>Телефон:</strong> <?php echo $number; ?></p>
+        <p><strong>Email:</strong> <?php echo $email; ?></p>
         <p><strong>Секция:</strong> <?php echo $section; ?></p>
-        <p><strong>Дата рождения:</strong> <?php $date ?: 'Не указана'; ?></p>
+        <p><strong>Дата рождения:</strong> <?php echo $date ?: 'Не указана'; ?></p>
         <p><strong>Роль:</strong> <?php echo $role; ?></p>
 
         <?php if ($role == "Буду докладчиком"): ?>
