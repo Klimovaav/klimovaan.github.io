@@ -9,14 +9,6 @@ if (!isset($_SESSION['form_data'])) {
 }
 $formData = $_SESSION['form_data'];
 
-// обрабатываем необязательные поля
-if ($date == "0000-00-00") {
-    $date = null;
-}
-if ($report == "") {
-    $report = null;
-}
-
 // данные для подключения к бд
 // я понимаю, что доступ к этой бд возможен только через мой пк, 
 // но веб-серверы предлагают бесплатное хранение только первый месяц, а я не знаю, когда будет проверено задание
@@ -24,7 +16,7 @@ if ($report == "") {
 $hostname = "localhost"; 
 $username = "root";      
 $password = "";          
-$database = "conference_db";
+$database = "confpeople_db";
 
 // подключаемся к бд
 $mysql = new mysqli($hostname, $username, $password, $database);
@@ -44,6 +36,14 @@ $section = $mysql->real_escape_string($formData['section']);
 $date = $mysql->real_escape_string($formData['date']);
 $role = $mysql->real_escape_string($formData['role']);
 $report = $mysql->real_escape_string($formData['report']);
+
+// обрабатываем необязательные поля
+if ($date == "0000-00-00") {
+    $date = null;
+}
+if ($report == "") {
+    $report = null;
+}
 
 // Создаем запрос и добавляем данные
 $sql = "INSERT INTO confmembers (lastname, firstname, patronymic, phone, email, section, date, role, report)
