@@ -1,6 +1,9 @@
 <?php
 // тут будем сохранять данные из формы в бд и перенаправлять пользователя на страницу подтверждения регистрации
 
+// Начинаем сессию для передачи данных на следующую страницу
+session_start(); 
+
 //передаём поля переменным
 $lastname = trim($_POST['last_name']);
 $firstname = trim($_POST['first_name']);
@@ -11,6 +14,18 @@ $section = trim($_POST['section']);
 $date = trim($_POST['birthdate']);
 $role = trim($_POST['role']);
 $report = trim($_POST['report']);
+
+$_SESSION['form_data'] = [
+    'lastname' => $lastname,
+    'firstname' => $firstname,
+    'patronymic' => $patronymic,
+    'phone' => $number,
+    'email' => $email,
+    'section' => $section,
+    'birthdate' => $date,
+    'role' => $role,
+    'report' => $report
+];
 
 //данные для подключения к бд
 $hostname = "mysql.j46555212.myjino.ru";
@@ -28,9 +43,14 @@ if ($report == "") {
 
 // подключаемся к бд, создаем таблицу и передаём туда данные
 $mysql = new mysqli($hostname, $username, $password, $database);
-// тут может возникнуть ошибка, если такая таблица уже существует
+
+// проверка подключения
+if ($mysql->connect_error) {
+    die("Ошибка подключения: " . $mysql->connect_error);
+}
+
 $createTableQuery = "
-    CREATE TABLE confmembers (
+    CREATE TABLE IF NOT EXISTS confmembers (
         id INT AUTO_INCREMENT PRIMARY KEY,
         lastname VARCHAR(100) NOT NULL,
         firstname VARCHAR(100) NOT NULL,
@@ -44,8 +64,18 @@ $createTableQuery = "
     )
 ";
 $mysql->query($createTableQuery);
-$mysql->query("INSERT INTO confmembers (lastname, firstname, patronymic, phone, email, section, birthdate, role, report) VALUES('$lastname', '$firstname', '$patronymic', '$number', '$email', '$section', '$date', 'role', '$report')");
+$mysql->query("INSERT INTO confmembers (lastname, firstname, patronymic, phone, email, section, birthdate, role, report) VALUES('$lastname', '$firstname', '$patronymic', '$number', '$email', '$section', '$date', '$role', '$report')");
+
+// флажки ошибок
+if (!$mysql->query($createTableQuery)) {
+    die("Ошибка создания таблицы: " . $mysql->error);
+}
+
+if (!$stmt->execute()) {
+    die("Ошибка вставки данных: " . $stmt->error);
+}
 
 $mysql->close();
 
-header('Location: /html/info.php');
+header('Location: successinfo.php');  // вставить правильный адрес
+exit();
