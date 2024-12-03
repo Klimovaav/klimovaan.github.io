@@ -50,7 +50,9 @@ $sql = "INSERT INTO confmembers (lastname, firstname, patronymic, phone, email, 
         VALUES ('$lastname', '$firstname', '$patronymic', '$number', '$email', '$section', '$date', '$role', '$report')";
 
 if ($mysql->query($sql) === TRUE) {
-    echo "Вы успешно зарегистрировались!";
+    // Направляем на страницу со списком
+    header('Location: memberlist.php');
+    exit();
 } else {
     echo "Ошибка: " . $mysql->error;
 }

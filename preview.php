@@ -61,7 +61,7 @@ $_SESSION['form_data'] = [
             .contanier {
                 gap: 20px;
                 max-width: 600px;
-                margin: 0 auto; /* Центрируем форму */
+                margin: 60px auto; /* Центрируем форму */
                 padding: 40px;
             }
 
