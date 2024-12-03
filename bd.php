@@ -21,52 +21,41 @@ $password = "E&LVd2ZNFBLDEW1P";
 $database = "yautochkay";
 
 // Подключаемся к бд
-$mysql = new mysqli($hostname, $username, $password, $database, null, '/var/run/mysqld/mysqld.sock');
-
-$conn = new mysqli('localhost', 'username', 'password', 'database');
-if ($conn->connect_error) {
-    die("Ошибка подключения: " . $conn->connect_error);
-}
-echo "Успешное подключение!";
+$mysqli = new mysqli($hostname, $username, $password, $database, null, '/var/run/mysqld/mysqld.sock');
 
 // проверка подключения
-if ($mysql->connect_error) {
-    die("Ошибка подключения: " . $mysql->connect_error);
+if ($mysqli->connect_error) {
+    die("Ошибка подключения: " . $mysqli->connect_error);
 }
 
 // Подготавливаем данные для сохранения
-$lastname = $mysql->real_escape_string($formData['lastname']);
-$firstname = $mysql->real_escape_string($formData['firstname']);
-$patronymic = $mysql->real_escape_string($formData['patronymic']);
-$number = $mysql->real_escape_string($formData['number']);
-$email = $mysql->real_escape_string($formData['email']);
-$section = $mysql->real_escape_string($formData['section']);
-$date = $mysql->real_escape_string($formData['date']);
-$role = $mysql->real_escape_string($formData['role']);
-$report = $mysql->real_escape_string($formData['report']);
+$lastname = $mysqli->real_escape_string($formData['lastname']);
+$firstname = $mysqli->real_escape_string($formData['firstname']);
+$patronymic = $mysqli->real_escape_string($formData['patronymic']);
+$number = $mysqli->real_escape_string($formData['number']);
+$email = $mysqli->real_escape_string($formData['email']);
+$section = $mysqli->real_escape_string($formData['section']);
+$date = $mysqli->real_escape_string($formData['date']);
+$role = $mysqli->real_escape_string($formData['role']);
+$report = $mysqli->real_escape_string($formData['report']);
 
 // обрабатываем необязательные поля
-if ($date == "0000-00-00") {
-    $date = null;
-}
-if ($report == "") {
-    $report = null;
-}
+$date = $date ? "'$date'" : "NULL";
+$report = $report ? "'$report'" : "NULL";
 
 // Создаем запрос и добавляем данные
 $sql = "INSERT INTO confmembers (lastname, firstname, patronymic, phone, email, section, birthdate, role, report)
         VALUES ('$lastname', '$firstname', '$patronymic', '$number', '$email', '$section', '$date', '$role', '$report')";
 
-if ($mysql->query($sql) === TRUE) {
+if ($mysqli->query($sql) === TRUE) {
+    // Очищаем данные из сессии
+    unset($_SESSION['form_data']);
     // Направляем на страницу со списком
     header('Location: memberlist.php');
     exit();
 } else {
-    echo "Ошибка: " . $mysql->error;
+    echo "Ошибка: " . $mysqli->error;
 }
 
-$mysql->close();
-
-// Очищаем данные из сессии
-unset($_SESSION['form_data']);
+$mysqli->close();
 ?>
