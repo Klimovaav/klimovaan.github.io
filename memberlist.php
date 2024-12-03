@@ -33,13 +33,66 @@ $result = $mysql->query($sql);
         <title>Список участников</title>
         <style>
 
+            /* Снимаем предзаданные отступы у всех объектов */
+            * {
+                background-color: white;
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Geologica', sans-serif;
+            }
+            
+            /* Заголовок и описание */
+            .description {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+                max-width: 800px;
+                margin: 60px auto 20px auto;
+            }
+            h1 {
+                grid-column: span 2; 
+                font-size: 36px;
+                font-weight: 500;
+            }
+            p {
+                font-size: 20px;
+                font-weight: 300;
+                opacity: 0.8;
+            }
+            
+            /* Таблица */
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                max-width: 800px;
+                margin: 0 auto;
+            }
+            th {  /* header */
+                border-bottom: 1px solid #ddd;
+                opacity: 0.6;
+                font-size: 16px;
+                font-weight: 300;
+                text-align: left;
+                padding: 10px;
+            }
+            td { /* data */
+                border-bottom: 1px solid #ddd;
+                font-size: 18px;
+                font-weight: 300;
+                padding: 10px;
+            }
+
+
         </style>
 
     </head>
 
     <body>
-        <h1>Вы успешно зарегистрировались</h1>
-        <p>Список участников</p>
+        <div class="description"> 
+            <h1>Вы зарегистрированы на конференцию</h1>
+            <p>Список участников:</p>
+        </div>
 
         <table>
             <thead>
@@ -48,7 +101,6 @@ $result = $mysql->query($sql);
                 <th>Имя</th>
                 <th>Отчество</th>
                 <th>Секция</th>
-                <th>Роль</th>
                 <th>Тема доклада</th>
                 </tr>
             </thead>
@@ -60,7 +112,6 @@ $result = $mysql->query($sql);
                             <td><?php echo htmlspecialchars($row['firstname']); ?></td>
                             <td><?php echo htmlspecialchars($row['patronymic']); ?></td>
                             <td><?php echo htmlspecialchars($row['section']); ?></td>
-                            <td><?php echo htmlspecialchars($row['role']); ?></td>
                             <td><?php echo htmlspecialchars($row['report'] ?: ''); ?></td>
                         </tr>
                     <?php endwhile; ?>
@@ -72,7 +123,7 @@ $result = $mysql->query($sql);
             </tbody>
         </table>
     </body>
-    
+
 </html>
 
 <?php

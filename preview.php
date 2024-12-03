@@ -111,7 +111,7 @@ $_SESSION['form_data'] = [
 
             /* Наименования строк */
             .strname {
-                opacity: 0.7;
+                opacity: 0.6;
                 font-size: 16px;
                 font-weight: 300;
             }
