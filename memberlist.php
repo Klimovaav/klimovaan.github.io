@@ -1,12 +1,13 @@
 <?php
 
 // данные для подключения к бд
-$hostname = "localhost"; 
-$username = "root";      
-$password = "";          
-$database = "confpeople_db";
+$hostname = "localhost";
+$username = "yautochkay";
+$password = "E&LVd2ZNFBLDEW1P";
+$database = "yautochkay";
 
-$mysql = new mysqli($hostname, $username, $password, $database);
+// Подключаемся к бд
+$mysqli = new mysqli($hostname, $username, $password, $database, null, '/var/run/mysqld/mysqld.sock');
 
 if ($mysql->connect_error) {
     die("Ошибка подключения: " . $mysql->connect_error);

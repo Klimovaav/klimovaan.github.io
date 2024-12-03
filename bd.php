@@ -10,16 +10,13 @@ if (!isset($_SESSION['form_data'])) {
 $formData = $_SESSION['form_data'];
 
 // данные для подключения к бд
-// я понимаю, что доступ к этой бд возможен только через мой пк, 
-// но веб-серверы предлагают бесплатное хранение только первый месяц, а я не знаю, когда будет проверено задание
-// в данном случае бд для примера организована на локальном сервере через XAMPP
-$hostname = "localhost"; 
-$username = "root";      
-$password = "";          
-$database = "confpeople_db";
+$hostname = "localhost";
+$username = "yautochkay";
+$password = "E&LVd2ZNFBLDEW1P";
+$database = "yautochkay";
 
-// подключаемся к бд
-$mysql = new mysqli($hostname, $username, $password, $database);
+// Подключаемся к бд
+$mysqli = new mysqli($hostname, $username, $password, $database, null, '/var/run/mysqld/mysqld.sock');
 
 // проверка подключения
 if ($mysql->connect_error) {
