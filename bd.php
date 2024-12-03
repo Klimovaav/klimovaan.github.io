@@ -30,7 +30,7 @@ if ($mysql->connect_error) {
 $lastname = $mysql->real_escape_string($formData['lastname']);
 $firstname = $mysql->real_escape_string($formData['firstname']);
 $patronymic = $mysql->real_escape_string($formData['patronymic']);
-$phone = $mysql->real_escape_string($formData['phone']);
+$number = $mysql->real_escape_string($formData['phone']);
 $email = $mysql->real_escape_string($formData['email']);
 $section = $mysql->real_escape_string($formData['section']);
 $date = $mysql->real_escape_string($formData['date']);
@@ -46,8 +46,8 @@ if ($report == "") {
 }
 
 // Создаем запрос и добавляем данные
-$sql = "INSERT INTO confmembers (lastname, firstname, patronymic, phone, email, section, date, role, report)
-        VALUES ('$lastname', '$firstname', '$patronymic', '$phone', '$email', '$section', '$date', '$role', '$report')";
+$sql = "INSERT INTO confmembers (lastname, firstname, patronymic, phone, email, section, birthdate, role, report)
+        VALUES ('$lastname', '$firstname', '$patronymic', '$number', '$email', '$section', '$date', '$role', '$report')";
 
 if ($mysql->query($sql) === TRUE) {
     echo "Вы успешно зарегистрировались!";
