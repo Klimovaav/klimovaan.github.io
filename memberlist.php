@@ -9,13 +9,13 @@ $database = "yautochkay";
 // Подключаемся к бд
 $mysqli = new mysqli($hostname, $username, $password, $database, null, '/var/run/mysqld/mysqld.sock');
 
-if ($mysql->connect_error) {
+if ($mysqli->connect_error) {
     die("Ошибка подключения: " . $mysql->connect_error);
 }
 
 // Получение данных из таблицы
 $sql = "SELECT * FROM confmembers";
-$result = $mysql->query($sql);
+$result = $mysqli->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +25,7 @@ $result = $mysql->query($sql);
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="../css/style.css" />
+        <!--link rel="stylesheet" href="../css/style.css" /-->
 
         <!-- Подключаем шрифт --> 
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -128,5 +128,5 @@ $result = $mysql->query($sql);
 </html>
 
 <?php
-$mysql->close();
+$mysqli->close();
 ?>
