@@ -1,4 +1,9 @@
 <?php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // тут будем сохранять данные из формы в бд
 
 // Проверяем наличие данных в сессии, достаём
@@ -16,7 +21,13 @@ $password = "E&LVd2ZNFBLDEW1P";
 $database = "yautochkay";
 
 // Подключаемся к бд
-$mysqli = new mysqli($hostname, $username, $password, $database, null, '/var/run/mysqld/mysqld.sock');
+$mysql = new mysqli($hostname, $username, $password, $database, null, '/var/run/mysqld/mysqld.sock');
+
+$conn = new mysqli('localhost', 'username', 'password', 'database');
+if ($conn->connect_error) {
+    die("Ошибка подключения: " . $conn->connect_error);
+}
+echo "Успешное подключение!";
 
 // проверка подключения
 if ($mysql->connect_error) {
