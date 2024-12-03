@@ -40,8 +40,12 @@ $role = $mysqli->real_escape_string($formData['role']);
 $report = $mysqli->real_escape_string($formData['report']);
 
 // обрабатываем необязательные поля
-$date = $date ? "'$date'" : "NULL";
-$report = $report ? "'$report'" : "NULL";
+if ($date == "0000-00-00") {
+    $date = null;
+}
+if ($report == "") {
+    $report = null;
+}
 
 // Создаем запрос и добавляем данные
 $sql = "INSERT INTO confmembers (lastname, firstname, patronymic, phone, email, section, birthdate, role, report)
