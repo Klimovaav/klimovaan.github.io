@@ -4,18 +4,25 @@
 
     <head>
         <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />  <!-- можно и удалить, это только для правильного считывания на старых барузерах -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="../css/style.css" />
-        <!-- <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300&display=swap" rel="stylesheet" /> -->
-
-        <!-- подключаю шрифт, пока не получилось -->
-        <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+        <!-- Подключаем шрифт --> 
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&display=swap" rel="stylesheet">
 
         <title>Форма регистрации</title>
         <style>
+
+            /* Снимаем предзаданные отступы у всех объектов */
+            * {
+                background-color: white;
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Geologica', sans-serif;
+            }
+
             /* Прячем поле с докладом */
             .hidden {
                 display: none !important;
@@ -24,58 +31,88 @@
             /* Общий стиль для формы */
             .registration-form {
                 display: grid;
-                grid-template-columns: 1fr 1fr; /* Две равные колонки */
-                gap: 40px; /* Отступы между элементами */
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
                 max-width: 600px;
-                margin: 0 auto; /* Центрируем форму */
+                margin: 60px auto;
                 padding: 40px;
-                background-color: #f9f9f9;
+                background-color: white;
                 border: 1px solid #ddd;
-                border-radius: 8px;
+                border-radius: 50px;
             }
 
             /* Заголовок формы */
-            .registration-form h1 {
-                grid-column: span 2; /* Заголовок занимает две колонки */
-                text-align: center;
-                margin: 0;
+            h1 {
+                grid-column: span 2; 
+                font-size: 36px;
+                font-weight: 500;
+            }
+
+            /* Разметка столбцов и полей */
+            .container, .form-group {
+                display: flex;
+                flex-direction: column;
             }
 
             /* Столбцы формы */
             .container {
-                display: flex;
-                flex-direction: column;
-                gap: 20px; /* Отступ между меткой и полем */
+                gap: 20px;
             }
 
             /* Поля ввода */
             .form-group {
-                display: flex;
-                flex-direction: column;
-                gap: 5px; /* Отступ между меткой и полем */
+                gap: 5px;
+            }
+            input {
+                padding: 12px;
+                margin: 10px 0px 0px 0px;
+                border: 1px solid #ddd;
+                border-radius: 6px; 
+                font-size: 18px; 
+                color: #333; 
+                outline: none;
+                font-weight: 300; 
+            }
+            label {
+                position: absolute;
+                font-size: 16px;
+                font-weight: 500;
+            }
+            .radioin {
+                margin: 0px;
+            }
+            .radiola {
+                margin: 2px 0px 0px 5px;
+                font-size: 18px;
+                font-weight: 300;
+            }
+            .radiohead {
+                position: relative;
+                margin: 5px 0px;
             }
 
             /* Кнопка */
             button {
-                grid-column: span 2; /* Кнопка занимает две колонки */
-                padding: 10px 20px;
-                background-color: #007bff;
+                grid-column: span 2;
+                background-color: red;
                 color: white;
                 border: none;
-                border-radius: 4px;
+                padding: 12px 20px;
+                border-radius: 10px;
                 cursor: pointer;
+                font-size: 18px;
+                width: 100%;
+            }
+            button:hover {
+                background-color: rgba(234, 7, 7, 1);
             }
 
-            button:hover {
-                background-color: #0056b3;
-            }
-            
         </style>
     </head>
 
     <body>
         <form class="registration-form" action="preview.php" method="POST">  <!-- указать название файла php -->
-            <h1>Форма регистрации</h1>
+            <h1>Введите данные для регистрации:</h1>
 
             <div class="container">
                 
@@ -111,22 +148,6 @@
             </div>
 
             <div class="container">
-                <!-- Список с секциями конференции (математика, физика, информатика) -->
-                <div class="form-group">
-                    <label><b>Выберите секцию конференции</b></label>
-                    <div>
-                        <input type="radio" id="maths" name="section" value="Математика" required>
-                        <label for="maths">Математика</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="phisics" name="section" value="Физика" required>
-                        <label for="phisics">Физика</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="inform" name="section" value="Информатика" required>
-                        <label for="inform">Информатика</label>
-                    </div>
-                </div>
 
                 <!-- Дата рождения -->
                 <div class="form-group">
@@ -134,15 +155,33 @@
                     <input type="date" id="birthdate" name="birthdate">
                 </div>
 
-                <!-- Выбор роли -->
+                <!-- Список с секциями конференции (математика, физика, информатика) -->
                 <div class="form-group">
+                    <label class="radiohead">Секция:</label>
                     <div>
-                        <input type="radio" id="viewer" name="role" value="Гость" onchange="toggleReportField()" checked required>
-                        <label for="viewer">Приду просто посмотреть</label>
+                        <input class="radioin" type="radio" id="maths" name="section" value="Математика" required>
+                        <label class="radiola" for="maths">Математика</label>
                     </div>
                     <div>
-                        <input type="radio" id="speaker" name="role" value="Докладчик" onchange="toggleReportField()" required>
-                        <label for="speaker">Буду докладчиком</label>
+                        <input class="radioin" type="radio" id="phisics" name="section" value="Физика" required>
+                        <label class="radiola" for="phisics">Физика</label>
+                    </div>
+                    <div>
+                        <input class="radioin" type="radio" id="inform" name="section" value="Информатика" required>
+                        <label class="radiola" for="inform">Информатика</label>
+                    </div>
+                </div>
+
+                <!-- Выбор роли -->
+                <div class="form-group">
+                    <label class="radiohead">Формат:</label>
+                    <div>
+                        <input class="radioin" type="radio" id="viewer" name="role" value="Гость" onchange="toggleReportField()" checked required>
+                        <label class="radiola" for="viewer">Приду просто посмотреть</label>
+                    </div>
+                    <div>
+                        <input class="radioin" type="radio" id="speaker" name="role" value="Докладчик" onchange="toggleReportField()" required>
+                        <label class="radiola" for="speaker">Буду докладчиком</label>
                     </div>
                 </div>
         

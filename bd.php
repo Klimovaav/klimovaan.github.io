@@ -30,7 +30,7 @@ if ($mysql->connect_error) {
 $lastname = $mysql->real_escape_string($formData['lastname']);
 $firstname = $mysql->real_escape_string($formData['firstname']);
 $patronymic = $mysql->real_escape_string($formData['patronymic']);
-$number = $mysql->real_escape_string($formData['phone']);
+$number = $mysql->real_escape_string($formData['number']);
 $email = $mysql->real_escape_string($formData['email']);
 $section = $mysql->real_escape_string($formData['section']);
 $date = $mysql->real_escape_string($formData['date']);
